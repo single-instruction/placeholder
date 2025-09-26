@@ -20,7 +20,6 @@ export const TradePanel = () => {
         <TabsList className="glass-panel m-4 mb-2 grid w-full grid-cols-3">
           <TabsTrigger value="market" className="text-xs">Market</TabsTrigger>
           <TabsTrigger value="limit" className="text-xs">Limit</TabsTrigger>
-          <TabsTrigger value="pro" className="text-xs">Pro</TabsTrigger>
         </TabsList>
 
         <div className="flex-1 px-4 pb-4">
