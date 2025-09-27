@@ -2,12 +2,16 @@
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ChevronDown, Globe, Settings, Copy, Check } from "lucide-react";
+import { ChevronDown, Globe, Settings, Copy, Check, Shield, AlertTriangle } from "lucide-react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useState } from "react";
+import { useKYC } from "@/components/utils/KYCContext";
+import { useAccount } from "wagmi";
 
 export const Navbar = () => {
   const [copied, setCopied] = useState(false);
+  const { isConnected } = useAccount();
+  const { isKYCVerified, setShowKYCModal } = useKYC();
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -55,6 +59,29 @@ export const Navbar = () => {
 
       {/* Right Side */}
       <div className="flex items-center space-x-4">
+        {/* KYC Status Indicator */}
+        {isConnected && (
+          <div className="flex items-center gap-2">
+            {isKYCVerified ? (
+              <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/30 glass-morphism">
+                <Shield className="w-3 h-3 mr-1" />
+                Verified
+              </Badge>
+            ) : (
+              <a href="/kyc">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-teal-500/50 text-teal-400 hover:bg-teal-500/20 hover:border-teal-500 glass-morphism glow-subtle hover:glow-teal transition-all duration-300"
+                >
+                  <AlertTriangle className="w-3 h-3 mr-1" />
+                  Complete KYC
+                </Button>
+              </a>
+            )}
+          </div>
+        )}
+        
         <ConnectButton.Custom>
           {({
             account,

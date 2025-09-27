@@ -1,0 +1,264 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap');
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* zkCLOB Futuristic Silver Theme */
+    --background: 220 25% 3%;
+    --foreground: 210 20% 98%;
+
+    --glass-background: 220 20% 6%;
+    --glass-border: 220 15% 20%;
+    --glass-hover: 220 20% 10%;
+
+    --card: 220 20% 5%;
+    --card-foreground: 210 15% 95%;
+
+    --popover: 220 20% 6%;
+    --popover-foreground: 210 15% 95%;
+
+    --primary: 210 40% 70%;
+    --primary-foreground: 220 25% 8%;
+    --primary-glow: 200 50% 80%;
+
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 210 20% 85%;
+
+    --muted: 220 20% 8%;
+    --muted-foreground: 220 15% 55%;
+
+    --accent: 240 30% 65%;
+    --accent-foreground: 220 25% 8%;
+
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --success: 120 60% 50%;
+    --success-foreground: 0 0% 98%;
+
+    --border: 220 15% 20%;
+    --input: 220 20% 12%;
+    --ring: 210 40% 70%;
+
+    --radius: 0.75rem;
+
+    /* Trading specific colors */
+    --buy-color: 120 60% 50%;
+    --sell-color: 0 75% 60%;
+    --spread-background: 220 20% 8%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-glass: linear-gradient(135deg, 
+      hsla(var(--glass-background), 0.9), 
+      hsla(var(--glass-background), 0.6));
+    --gradient-silver: linear-gradient(135deg, 
+      hsl(210 40% 70%), 
+      hsl(240 30% 65%));
+
+    /* Shadows */
+    --shadow-glass: 0 8px 32px hsla(0, 0%, 0%, 0.4);
+    --shadow-glow: 0 0 25px hsla(var(--primary), 0.4);
+    --shadow-silver: 0 0 30px hsla(210, 40%, 70%, 0.3);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    /* Futuristic Silver Dark Mode */
+    --background: 220 25% 3%;
+    --foreground: 210 20% 98%;
+
+    --glass-background: 220 20% 6%;
+    --glass-border: 220 15% 20%;
+    --glass-hover: 220 20% 10%;
+
+    --card: 220 20% 5%;
+    --card-foreground: 210 15% 95%;
+
+    --popover: 220 20% 6%;
+    --popover-foreground: 210 15% 95%;
+
+    --primary: 210 40% 70%;
+    --primary-foreground: 220 25% 8%;
+    --primary-glow: 200 50% 80%;
+
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 210 20% 85%;
+
+    --muted: 220 20% 8%;
+    --muted-foreground: 220 15% 55%;
+
+    --accent: 240 30% 65%;
+    --accent-foreground: 220 25% 8%;
+
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --success: 120 60% 50%;
+    --success-foreground: 0 0% 98%;
+
+    --border: 220 15% 20%;
+    --input: 220 20% 12%;
+    --ring: 210 40% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', 'JetBrains Mono', monospace;
+    background-image: 
+      radial-gradient(circle at 20% 50%, hsla(var(--primary), 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, hsla(var(--primary), 0.1) 0%, transparent 50%);
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-glass-background/80 border border-glass-border backdrop-blur-xl;
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-hover {
+    @apply hover:bg-glass-hover/80 transition-all duration-300;
+  }
+
+  .glow-primary {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 5px hsla(var(--primary), 0.3);
+    }
+    50% {
+      box-shadow: 0 0 20px hsla(var(--primary), 0.6);
+    }
+  }
+
+  .order-book-item {
+    @apply transition-all duration-200 hover:bg-glass-hover/60;
+  }
+
+  .buy-color {
+    color: hsl(var(--success));
+  }
+
+  .sell-color {
+    color: hsl(var(--destructive));
+  }
+
+  .silver-glow {
+    box-shadow: var(--shadow-silver);
+  }
+
+  .text-gradient-silver {
+    background: var(--gradient-silver);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .enhanced-glass {
+    @apply bg-glass-background/90 border border-glass-border/60 backdrop-blur-2xl;
+    box-shadow: 
+      var(--shadow-glass),
+      inset 0 1px 0 hsla(210, 40%, 70%, 0.1);
+  }
+
+  .futuristic-border {
+    border-image: linear-gradient(135deg, 
+      hsla(210, 40%, 70%, 0.6), 
+      hsla(240, 30%, 65%, 0.3), 
+      hsla(210, 40%, 70%, 0.6)
+    ) 1;
+  }
+
+  .subtle-grid {
+    background-image: 
+      linear-gradient(hsla(var(--glass-border), 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, hsla(var(--glass-border), 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Enhanced Glassmorphism for KYC */
+  .glass-morphism {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .glow-teal {
+    box-shadow: 
+      0 0 20px rgba(20, 184, 166, 0.3),
+      0 0 40px rgba(20, 184, 166, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .glow-emerald {
+    box-shadow: 
+      0 0 20px rgba(16, 185, 129, 0.3),
+      0 0 40px rgba(16, 185, 129, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .glow-subtle {
+    box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .text-gradient-teal {
+    background: linear-gradient(135deg, #14b8a6, #10b981, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Animations */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
