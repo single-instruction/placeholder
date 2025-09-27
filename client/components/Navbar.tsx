@@ -123,19 +123,19 @@ export const Navbar = () => {
                           <span>
                             {account.displayName}
                           </span>
-                          <button 
+                          <div 
                             onClick={(e) => {
                               e.stopPropagation();
                               copyToClipboard(account.address);
                             }}
-                            className="p-1 hover:bg-primary/10 rounded-full"
+                            className="p-1 hover:bg-primary/10 rounded-full cursor-pointer"
                           >
                             {copied ? (
                               <Check className="w-3 h-3 text-green-500" />
                             ) : (
                               <Copy className="w-3 h-3" />
                             )}
-                          </button>
+                          </div>
                         </div>
                       </Button>
                     </div>

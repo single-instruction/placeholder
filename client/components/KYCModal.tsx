@@ -101,10 +101,10 @@ export function KYCModal() {
 
   return (
     <Dialog open={showKYCModal} onOpenChange={handleClose}>
-      <div className={`fixed inset-0 z-40 transition-all duration-300 ${showKYCModal ? 'backdrop-blur-md bg-black/20' : 'pointer-events-none'}`} />
-      <DialogContent className="sm:max-w-[600px] glass-morphism border border-glass-border/60 backdrop-blur-2xl z-50">
+      <div className={`fixed inset-0 z-40 transition-all duration-300 ${showKYCModal ? 'backdrop-blur-md bg-black/40' : 'pointer-events-none'}`} />
+      <DialogContent className="sm:max-w-[600px] glass-morphism border border-primary/20 backdrop-blur-2xl z-50">
         <DialogHeader className="text-center space-y-4">
-          <div className="flex items-center justify-center w-16 h-16 mx-auto glass-morphism rounded-full mb-4 silver-glow">
+          <div className="flex items-center justify-center w-16 h-16 mx-auto glass-morphism rounded-full mb-4 border border-primary/20 silver-glow">
             <Shield className="w-8 h-8 text-primary" />
           </div>
           <DialogTitle className="text-2xl font-bold text-gradient-silver">
@@ -128,16 +128,16 @@ export function KYCModal() {
           {/* Error State */}
           {!isLoading && errorMessage && (
             <div className="flex flex-col items-center justify-center py-12 space-y-6">
-              <div className="w-16 h-16 glass-morphism rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 glass-morphism rounded-full flex items-center justify-center border border-destructive/30">
                 <AlertTriangle className="w-8 h-8 text-destructive" />
               </div>
               <div className="text-center space-y-2">
                 <h3 className="text-lg font-semibold text-destructive">Initialization Failed</h3>
-                <p className="text-destructive/70 text-sm max-w-md">
+                <p className="text-destructive-foreground text-sm max-w-md">
                   {errorMessage}
                 </p>
               </div>
-              <Button onClick={handleRetry} className="glass-morphism bg-primary/20 border-primary/30 hover:bg-primary/30 text-primary-foreground glow-subtle">
+              <Button onClick={handleRetry} className="glass-morphism bg-primary/30 border border-primary/50 text-white hover:bg-primary/50 hover:shadow-lg hover:shadow-primary/20 active:scale-95 transform transition-all duration-300">
                 Try Again
               </Button>
             </div>
@@ -146,7 +146,7 @@ export function KYCModal() {
           {/* Success State */}
           {verificationStatus === 'success' && (
             <div className="flex flex-col items-center justify-center py-12 space-y-6">
-              <div className="w-16 h-16 glass-morphism rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 glass-morphism rounded-full flex items-center justify-center border border-success/40 silver-glow">
                 <CheckCircle className="w-8 h-8 text-success" />
               </div>
               <div className="text-center space-y-2">
@@ -162,7 +162,7 @@ export function KYCModal() {
           {!isLoading && !errorMessage && selfApp && verificationStatus !== 'success' && (
             <div className="space-y-6">
               {/* Instructions */}
-              <div className="kyc-card p-4">
+              <div className="glass-morphism p-4 border border-primary/20">
                 <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
                   <Smartphone className="w-5 h-5 text-primary" />
                   How to verify:
@@ -177,7 +177,7 @@ export function KYCModal() {
 
               {/* QR Code */}
               <div className="flex flex-col items-center space-y-4">
-                <div className="bg-white rounded-xl p-6 shadow-2xl silver-glow">
+                <div className="bg-white rounded-xl p-6 shadow-2xl border border-primary/20">
                   <SelfQRcodeWrapper
                     selfApp={selfApp}
                     onSuccess={handleSuccessfulVerification}
@@ -191,7 +191,7 @@ export function KYCModal() {
                 {universalLink && (
                   <a 
                     href={universalLink}
-                    className="flex items-center gap-2 px-6 py-3 glass-morphism bg-primary/20 border-primary/30 hover:bg-primary/30 text-primary-foreground rounded-lg glow-subtle font-medium"
+                    className="flex items-center gap-2 px-6 py-3 glass-morphism bg-primary/30 border border-primary/50 hover:bg-primary/50 text-white rounded-lg font-medium hover:shadow-lg hover:shadow-primary/20 active:scale-95 transform transition-all duration-300"
                   >
                     <Smartphone className="w-4 h-4" />
                     Open in Self.xyz App
@@ -200,7 +200,7 @@ export function KYCModal() {
               </div>
 
               {/* Session Info */}
-              <div className="glass-morphism border border-glass-border p-3">
+              <div className="glass-morphism border border-primary/20 p-3">
                 <div className="text-xs text-muted-foreground space-y-1">
                   <div className="flex justify-between">
                     <span>Wallet:</span>
@@ -220,7 +220,7 @@ export function KYCModal() {
         </div>
 
         {/* Footer */}
-        <div className="border-t border-glass-border pt-4 flex justify-between items-center text-xs text-muted-foreground">
+        <div className="border-t border-primary/20 pt-4 flex justify-between items-center text-xs text-muted-foreground">
           <span>Powered by Self.xyz</span>
           <span>Secure • Private • Compliant</span>
         </div>
