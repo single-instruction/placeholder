@@ -52,6 +52,47 @@ export const TradePanel = () => {
     };
   }, []);
 
+  // Hooks for trading infrastructure
+  const { isKYCVerified } = useKYC();
+  const { isReady: keysReady, needsInitialization, initializeTradingKeys } = useTradingKeys();
+  const { submitOrder, state: submissionState, canSubmit, isProcessing, hasError, isComplete } = useOrderSubmission();
+  const { isLoaded: circuitsLoaded, isLoading: circuitsLoading } = useCircuits();
+  const { data: walletClient } = useWalletClient();
+
+  // Handle order submission
+  const handleSubmitOrder = async () => {
+    if (!canSubmit) return;
+
+    const sizeNum = parseFloat(size);
+    if (!sizeNum || sizeNum <= 0) {
+      alert("Please enter a valid size");
+      return;
+    }
+
+    const orderRequest = {
+      pairId: "HYPE-USDC",
+      side: side as 'buy' | 'sell',
+      amount: sizeNum,
+      price: orderType === 'limit' ? parseFloat(price) : undefined,
+      orderType: orderType as 'market' | 'limit'
+    };
+
+    const success = await submitOrder(orderRequest);
+    if (success) {
+      // Clear form on success
+      setSize("");
+      setPrice("");
+      setSliderValue([0]);
+    }
+  };
+
+  // Handle trading key initialization
+  const handleInitializeKeys = async () => {
+    console.log('[UI] Initialize keys button clicked');
+    const result = await initializeTradingKeys();
+    console.log('[UI] Initialize keys result:', result);
+  };
+
   return (
     <div className="glass-panel h-full flex flex-col">
       {/* Trade Type Tabs */}
@@ -136,16 +177,112 @@ export const TradePanel = () => {
               />
             </div>
 
+            {/* Status Messages */}
+            {!isKYCVerified && (
+              <div className="glass-panel p-3 rounded-lg border-amber-500/30">
+                <div className="flex items-center gap-2 text-amber-400 text-sm">
+                  <Shield className="w-4 h-4" />
+                  <span>Complete KYC verification to start trading</span>
+                </div>
+              </div>
+            )}
+
+            {isKYCVerified && needsInitialization && (
+              <div className="glass-panel p-3 rounded-lg border-blue-500/30">
+                <div className="flex items-center gap-2 text-blue-400 text-sm mb-2">
+                  <Key className="w-4 h-4" />
+                  <span>Initialize trading keys to start trading</span>
+                </div>
+                {!walletClient && (
+                  <div className="text-xs text-amber-400 mb-2">
+                    Please ensure you're connected to Base Sepolia network
+                  </div>
+                )}
+                <Button 
+                  onClick={handleInitializeKeys}
+                  disabled={!walletClient}
+                  className="w-full bg-blue-500/20 border border-blue-500/30 hover:bg-blue-500/30 text-blue-400 disabled:opacity-50"
+                  variant="outline"
+                >
+                  Initialize Trading Keys
+                </Button>
+              </div>
+            )}
+
+            {!circuitsLoaded && circuitsLoading && (
+              <div className="glass-panel p-3 rounded-lg border-purple-500/30">
+                <div className="flex items-center gap-2 text-purple-400 text-sm">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Loading ZK circuits...</span>
+                </div>
+              </div>
+            )}
+
             {/* Order Button */}
             <Button 
-              className={`w-full h-12 text-base font-semibold ${
+              onClick={handleSubmitOrder}
+              disabled={!canSubmit || isProcessing}
+              className={`w-full h-12 text-base font-semibold transition-all ${
                 side === "buy"
                   ? "bg-teal-500/25 border-teal-500/50 text-teal-100 hover:bg-teal-500/35"
                   : "bg-red-500/25 border-red-500/50 text-red-100 hover:bg-red-500/35"
               }`}
             >
-              {side === "buy" ? "Buy" : "Sell"} HYPE
+              {isProcessing ? (
+                <div className="flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>
+                    {submissionState.status === 'preparing' && 'Preparing...'}
+                    {submissionState.status === 'generating-proof' && 'Generating Proof...'}
+                    {submissionState.status === 'submitting' && 'Submitting...'}
+                  </span>
+                </div>
+              ) : (
+                `${side === "buy" ? "Buy" : "Sell"} HYPE`
+              )}
             </Button>
+
+            {/* Progress Bar */}
+            {isProcessing && (
+              <div className="space-y-2">
+                <div className="w-full bg-glass-border rounded-full h-2">
+                  <div 
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      side === "buy" ? "bg-success" : "bg-destructive"
+                    }`}
+                    style={{ width: `${submissionState.progress}%` }}
+                  />
+                </div>
+                <div className="text-xs text-center text-muted-foreground">
+                  {submissionState.status === 'generating-proof' && 'Generating zero-knowledge proof...'}
+                  {submissionState.status === 'submitting' && 'Submitting to sequencer...'}
+                  {submissionState.progress}%
+                </div>
+              </div>
+            )}
+
+            {/* Error Display */}
+            {hasError && (
+              <div className="glass-panel p-3 rounded-lg border-red-500/30">
+                <div className="text-red-400 text-sm">
+                  Error: {submissionState.error}
+                </div>
+              </div>
+            )}
+
+            {/* Success Display */}
+            {isComplete && (
+              <div className="glass-panel p-3 rounded-lg border-green-500/30">
+                <div className="text-green-400 text-sm">
+                  Order submitted successfully!
+                  {submissionState.orderHash && (
+                    <div className="text-xs text-muted-foreground mt-1">
+                      Order: {submissionState.orderHash.slice(0, 10)}...
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Est. Cost */}
             <div className="text-center text-sm text-muted-foreground">
@@ -200,13 +337,26 @@ export const TradePanel = () => {
 
             {/* Order Button */}
             <Button 
-              className={`w-full h-12 text-base font-semibold ${
+              onClick={handleSubmitOrder}
+              disabled={!canSubmit || isProcessing}
+              className={`w-full h-12 text-base font-semibold transition-all ${
                 side === "buy"
                   ? "bg-teal-500/25 border-teal-500/50 text-teal-100 hover:bg-teal-500/35"
                   : "bg-red-500/25 border-red-500/50 text-red-100 hover:bg-red-500/35"
               }`}
             >
-              {side === "buy" ? "Buy" : "Sell"} HYPE
+              {isProcessing ? (
+                <div className="flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>
+                    {submissionState.status === 'preparing' && 'Preparing...'}
+                    {submissionState.status === 'generating-proof' && 'Generating Proof...'}
+                    {submissionState.status === 'submitting' && 'Submitting...'}
+                  </span>
+                </div>
+              ) : (
+                `${side === "buy" ? "Buy" : "Sell"} HYPE`
+              )}
             </Button>
           </TabsContent>
 

@@ -1,0 +1,9 @@
+[submodule "self-placeholder"]
+	path = self-placeholder
+	url = ../self-placeholder
+[submodule "mopro-circuits"]
+	path = mopro-circuits
+	url = ../mopro-circuits
+[submodule "Sequencer-zkvm"]
+	path = Sequencer-zkvm
+	url = ../Sequencer-zkvm
