@@ -38,24 +38,24 @@ export function KYCModal() {
       const app = new SelfAppBuilder({
         version: 2,
         appName: process.env.NEXT_PUBLIC_SELF_APP_NAME || "zkCLOB Exchange",
-        scope: process.env.NEXT_PUBLIC_SELF_SCOPE || "zkclob-kyc-verification",
-        endpoint: process.env.NEXT_PUBLIC_SELF_ENDPOINT || "https://staging-api.self.xyz",
+        scope: process.env.NEXT_PUBLIC_SELF_SCOPE || "zkclob-kyc-verifier",
+        endpoint: process.env.NEXT_PUBLIC_SELF_ENDPOINT || "0x99064CF6d955C3aF3b8c5AF5078d8AC1372b323d",
         logoBase64: "https://i.postimg.cc/mrmVf9hm/self.png",
         userId: address || "",
-        endpointType: "staging_https",
+        endpointType: "staging_celo",
         userIdType: "hex",
         userDefinedData: "zkCLOB KYC Verification",
         disclosures: {
           // Verification requirements
           minimumAge: 18,
-          // ofac: false, // Uncomment if needed
-          // excludedCountries: [], // Add excluded countries if needed
+          excludedCountries: [], // Add excluded countries if needed
+          ofac: true, // Uncomment if needed
 
           // What users need to disclose
-          nationality: true,
-          gender: true,
-          name: true,
-          date_of_birth: true,
+          // nationality: true,
+          // gender: true,
+          // name: true,
+          // date_of_birth: true,
         }
       }).build();
 
