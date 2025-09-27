@@ -682,32 +682,7 @@ function TradingViewChart({ candles, chartType, currentPrice, timeframe }: Tradi
 
       {/* Live Indicator and Price Ticker */}
       <div className="absolute top-4 right-4 flex flex-col gap-2">
-        <div className="flex items-center gap-2 bg-slate-800/90 backdrop-blur-sm border border-slate-700 rounded-lg px-3 py-1.5">
-          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-          <span className="text-xs text-slate-300 font-medium">LIVE</span>
-        </div>
-        
-        {/* Simulated order ticker - generates 16 orders but shows 8 at a time */}
-        <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-lg p-2 max-h-40 overflow-hidden">
-          <div className="flex flex-col gap-1 animate-scroll">
-            {[...Array(16)].map((_, i) => {
-              const isBuy = Math.random() > 0.5;
-              const size = (Math.random() * 0.4 + 0.1).toFixed(3);
-              const price = (currentPrice * (1 + (isBuy ? 0.0005 : -0.0005) * Math.random())).toFixed(3);
-              
-              return (
-                <div key={i} className="flex justify-between text-xs items-center">
-                  <span className={isBuy ? "text-green-400" : "text-red-400"}>
-                    {isBuy ? "BUY" : "SELL"}
-                  </span>
-                  <span className="text-slate-300 font-mono ml-2">{size}</span>
-                  <span className="text-slate-300 font-mono ml-2">${price}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        
+      
         {/* Mini depth chart visualization */}
         <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-lg p-2 mt-2 w-48">
           <div className="text-xs text-slate-400 mb-1">Market Depth</div>

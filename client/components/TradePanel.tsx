@@ -1,10 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { motion } from "framer-motion";
+
+// Add custom animation for order ticker
+const scrollAnimation = `
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+.animate-scroll {
+  animation: scroll 15s linear infinite;
+  height: 200%;
+  display: flex;
+  flex-direction: column;
+}
+.animate-scroll > div {
+  padding: 3px 0;
+}
+`;
 
 export const TradePanel = () => {
   const [orderType, setOrderType] = useState("market");
@@ -12,6 +34,23 @@ export const TradePanel = () => {
   const [size, setSize] = useState("");
   const [price, setPrice] = useState("");
   const [sliderValue, setSliderValue] = useState([0]);
+  
+  // Add scroll animation to page
+  useEffect(() => {
+    // Add the style element if it doesn't exist yet
+    if (!document.getElementById('ticker-animations')) {
+      const styleEl = document.createElement('style');
+      styleEl.id = 'ticker-animations';
+      styleEl.innerHTML = scrollAnimation;
+      document.head.appendChild(styleEl);
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      const styleEl = document.getElementById('ticker-animations');
+      if (styleEl) styleEl.remove();
+    };
+  }, []);
 
   return (
     <div className="glass-panel h-full flex flex-col">
@@ -20,6 +59,7 @@ export const TradePanel = () => {
         <TabsList className="glass-panel m-4 mb-2 grid w-full grid-cols-3">
           <TabsTrigger value="market" className="text-xs">Market</TabsTrigger>
           <TabsTrigger value="limit" className="text-xs">Limit</TabsTrigger>
+          <TabsTrigger value="trades" className="text-xs">Trades</TabsTrigger>
         </TabsList>
 
         <div className="flex-1 px-4 pb-4">
@@ -173,6 +213,15 @@ export const TradePanel = () => {
           <TabsContent value="pro" className="space-y-4 m-0">
             <div className="text-center text-sm text-muted-foreground py-8">
               Advanced trading features
+            </div>
+          </TabsContent>
+          
+          {/* Trades Tab with Order Ticker */}
+          <TabsContent value="trades" className="m-0 h-full flex flex-col">
+            <div className="flex-1 flex items-center justify-center">
+              <div className="text-center text-muted-foreground">
+                Recent trades will appear here
+              </div>
             </div>
           </TabsContent>
         </div>

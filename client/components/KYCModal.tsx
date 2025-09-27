@@ -37,9 +37,9 @@ export function KYCModal() {
       
       const app = new SelfAppBuilder({
         version: 2,
-        appName: process.env.NEXT_PUBLIC_SELF_APP_NAME || "zkCLOB Exchange",
+        appName: "zkCLOB Exchange",
         scope: "zkclob-kyc-verifier",
-        endpoint: process.env.NEXT_PUBLIC_SELF_ENDPOINT || "0x99064cf6d955c3af3b8c5af5078d8ac1372b323d",
+        endpoint: "0x99064cf6d955c3af3b8c5af5078d8ac1372b323d",
         logoBase64: "https://i.postimg.cc/mrmVf9hm/self.png",
         userId: address || "",
         endpointType: "staging_celo",

@@ -3,6 +3,27 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
 
+// Add custom animation for order ticker
+const scrollAnimation = `
+@keyframes scroll {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+.animate-scroll {
+  animation: scroll 15s linear infinite;
+  height: 200%;
+  display: flex;
+  flex-direction: column;
+}
+.animate-scroll > div {
+  padding: 3px 0;
+}
+`;
+
 interface OrderBookEntry {
   price: number;
   size: number;
@@ -13,6 +34,23 @@ export const OrderBook = () => {
   const [asks, setAsks] = useState<OrderBookEntry[]>([]);
   const [bids, setBids] = useState<OrderBookEntry[]>([]);
   const [spread, setSpread] = useState({ value: 0.007, percentage: 0.016 });
+  
+  // Add scroll animation to page
+  useEffect(() => {
+    // Add the style element if it doesn't exist yet
+    if (!document.getElementById('order-ticker-animations')) {
+      const styleEl = document.createElement('style');
+      styleEl.id = 'order-ticker-animations';
+      styleEl.innerHTML = scrollAnimation;
+      document.head.appendChild(styleEl);
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      const styleEl = document.getElementById('order-ticker-animations');
+      if (styleEl) styleEl.remove();
+    };
+  }, []);
 
   // Initialize order book data
   useEffect(() => {
@@ -144,9 +182,52 @@ export const OrderBook = () => {
           </div>
         </TabsContent>
 
-        <TabsContent value="trades" className="flex-1 p-4 m-0">
-          <div className="text-center text-muted-foreground">
-            Recent trades will appear here
+        <TabsContent value="trades" className="flex-1 flex flex-col m-0">
+          {/* Header */}
+          <div className="px-2 py-2 border-b border-glass-border">
+            <div className="grid grid-cols-3 text-xs text-muted-foreground mb-1">
+              <div>Type</div>
+              <div className="text-center">Size</div>
+              <div className="text-right">Price (USDC)</div>
+            </div>
+          </div>
+          
+          {/* Trade Ticker */}
+          <div className="flex-1 overflow-hidden">
+            <div className="h-full overflow-hidden p-2">
+              <div className="animate-scroll">
+                <div className="grid grid-cols-3 gap-1">
+                  {[...Array(12)].map((_, i) => {
+                    const isBuy = Math.random() > 0.5;
+                    const price = (44.449 + (Math.random() * 0.5 - 0.25)).toFixed(3);
+                    const size = (Math.random() * 2 + 0.1).toFixed(2);
+                    return (
+                      <div key={i} className="contents">
+                        <div className={`text-xs font-semibold ${isBuy ? "text-success" : "text-destructive"}`}>
+                          {isBuy ? "BUY" : "SELL"}
+                        </div>
+                        <div className="text-xs font-mono text-center">{size} HYPE</div>
+                        <div className="text-xs font-mono text-right">${price}</div>
+                      </div>
+                    );
+                  })}
+                  {[...Array(12)].map((_, i) => {
+                    const isBuy = Math.random() > 0.5;
+                    const price = (44.449 + (Math.random() * 0.5 - 0.25)).toFixed(3);
+                    const size = (Math.random() * 2 + 0.1).toFixed(2);
+                    return (
+                      <div key={i + 12} className="contents">
+                        <div className={`text-xs font-semibold ${isBuy ? "text-success" : "text-destructive"}`}>
+                          {isBuy ? "BUY" : "SELL"}
+                        </div>
+                        <div className="text-xs font-mono text-center">{size} HYPE</div>
+                        <div className="text-xs font-mono text-right">${price}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
           </div>
         </TabsContent>
       </Tabs>
