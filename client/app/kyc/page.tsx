@@ -41,8 +41,8 @@ export default function KYCPage() {
         <div className="absolute inset-0 z-0">
           <Aurora 
             colorStops={['#8b5a3c','#14b8a6', '#8b5a3c']}
-            amplitude={1.2}
-            blend={0.6}
+            amplitude={0.5}
+            blend={1.7}
             speed={0.8}
           />
         </div>
@@ -54,8 +54,8 @@ export default function KYCPage() {
           <Navbar />
           <main className="container mx-auto px-6 py-8 flex items-center justify-center min-h-[80vh]">
             <div className="text-center space-y-8 max-w-md">
-              <div className="glass-morphism rounded-xl p-8 border border-primary/20 hover:-translate-y-1 hover:shadow-glow hover:border-primary/40 transition-all duration-300">
-                <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="glass-morphism bg-black/5 backdrop-blur-xl rounded-xl p-8 border border-white/10 hover:-translate-y-1 hover:shadow-2xl hover:shadow-white/5 hover:border-white/20 transition-all duration-500">
+                <div className="w-20 h-20 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-6 border border-white/10">
                   <User className="w-10 h-10 text-primary" />
                 </div>
                 <div className="space-y-4">
@@ -65,7 +65,7 @@ export default function KYCPage() {
                   </p>
                 </div>
                 <Link href="/" className="mt-6 inline-block">
-                  <Button className="glass-morphism border border-primary/20 hover:border-primary/40 bg-primary/20 hover:bg-primary/30 text-foreground mt-6 hover:-translate-y-1 transition-all duration-300">
+                  <Button className="glass-morphism bg-white/5 backdrop-blur-sm border border-white/20 hover:border-white/30 hover:bg-white/10 text-foreground mt-6 hover:-translate-y-1 transition-all duration-300">
                     Go Back to Home
                   </Button>
                 </Link>
@@ -101,7 +101,7 @@ export default function KYCPage() {
             <Link href="/dashboard">
               <Button 
                 variant="ghost" 
-                className="glass-morphism border border-primary/20 hover:border-primary/40 text-foreground hover:text-primary hover:bg-primary/20"
+                className="glass-morphism bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 text-foreground hover:text-white hover:bg-white/10"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Dashboard
@@ -109,7 +109,7 @@ export default function KYCPage() {
             </Link>
 
             {/* Current Status */}
-            <div className="glass-morphism rounded-lg px-4 py-2 border border-primary/20 flex items-center gap-2">
+            <div className="glass-morphism bg-black/5 backdrop-blur-xl rounded-lg px-4 py-2 border border-white/10 flex items-center gap-2">
               <div className={`w-2 h-2 rounded-full ${isKYCVerified ? 'bg-success animate-pulse' : 'bg-destructive'}`}></div>
               <span className="text-sm text-muted-foreground">
                 {isKYCVerified ? 'Verified' : 'Not Verified'}
@@ -120,7 +120,7 @@ export default function KYCPage() {
           {/* Success Message */}
           {showSuccessMessage && (
             <div className="max-w-2xl mx-auto mb-8">
-              <div className="glass-morphism rounded-lg border border-success/40 p-6 flex items-center gap-3 hover:-translate-y-1 hover:shadow-glow hover:border-success/60 transition-all duration-300">
+              <div className="glass-morphism bg-green-500/5 backdrop-blur-xl rounded-lg border border-green-500/20 p-6 flex items-center gap-3 hover:-translate-y-1 hover:shadow-2xl hover:shadow-green-500/10 hover:border-green-500/30 transition-all duration-500">
                 <CheckCircle className="w-6 h-6 text-success" />
                 <div>
                   <h3 className="font-semibold text-success">Verification Successful!</h3>
@@ -131,9 +131,10 @@ export default function KYCPage() {
           )}
 
           {/* KYC Status Card */}
+                    {/* KYC Status Card */}
           <div className="max-w-2xl mx-auto mb-12">
-            <div className="glass-morphism rounded-xl p-8 text-center border border-primary/20 hover:-translate-y-1 hover:shadow-glow hover:border-primary/40 transition-all duration-300">
-              <div className="w-20 h-20 mx-auto mb-6 bg-primary/20 rounded-full flex items-center justify-center">
+            <div className="glass-morphism rounded-xl p-8 text-center border border-white/20 shadow-2xl shadow-primary/20 hover:-translate-y-1 hover:shadow-3xl hover:shadow-primary/30 hover:border-white/30 transition-all duration-500 backdrop-blur-xl bg-black/60">
+              <div className="w-20 h-20 mx-auto mb-6 bg-white/5 rounded-full flex items-center justify-center backdrop-blur-sm">
                 {isKYCVerified ? (
                   <CheckCircle className="w-10 h-10 text-success" />
                 ) : (
@@ -160,14 +161,14 @@ export default function KYCPage() {
                   </div>
                   <div className="flex gap-4 justify-center">
                     <Link href="/dashboard">
-                      <Button className="glass-morphism bg-primary/30 border border-primary/50 text-white hover:bg-primary/50 hover:shadow-lg hover:shadow-primary/20 active:scale-95 transform transition-all duration-300 px-8 py-3 font-medium">
+                      <Button className="glass-morphism bg-white/5 backdrop-blur-sm border border-white/20 text-white hover:bg-white/10 hover:shadow-lg hover:shadow-white/10 active:scale-95 transform transition-all duration-300 px-8 py-3 font-medium">
                         Go to Dashboard
                       </Button>
                     </Link>
                     <Button 
                       onClick={handleResetKYC}
                       variant="outline"
-                      className="glass-morphism border border-destructive/30 hover:bg-destructive/20 text-muted-foreground hover:text-white transition-all duration-300"
+                      className="glass-morphism bg-red-500/5 border border-red-500/20 hover:bg-red-500/10 text-muted-foreground hover:text-red-300 transition-all duration-300"
                     >
                       Reset Verification
                     </Button>
@@ -176,7 +177,7 @@ export default function KYCPage() {
               ) : (
                 <Button 
                   onClick={handleStartKYC}
-                  className="glass-morphism bg-primary/30 border border-primary/50 text-white hover:bg-primary/50 hover:shadow-lg hover:shadow-primary/20 active:scale-95 transform transition-all duration-300 px-8 py-3 font-medium"
+                  className="glass-morphism bg-white/5 backdrop-blur-sm border border-white/20 text-white hover:bg-white/10 hover:shadow-lg hover:shadow-white/10 active:scale-95 transform transition-all duration-300 px-8 py-3 font-medium"
                 >
                   Start Verification
                 </Button>
@@ -190,24 +191,24 @@ export default function KYCPage() {
               { 
                 title: "Zero-Knowledge Privacy", 
                 description: "Your personal data never leaves your device. Only verification status is shared.",
-                icon: <Shield className="w-6 h-6 text-primary" />
+                icon: <Shield className="w-6 h-6 text-primary text-white" />
               },
               { 
                 title: "Quick Process", 
                 description: "Complete verification in just a few minutes using your mobile device.",
-                icon: <Sparkles className="w-6 h-6 text-accent" />
+                icon: <Sparkles className="w-6 h-6 text-accent text-white" />
               },
               { 
                 title: "Secure Trading", 
                 description: "Verified accounts can access advanced trading features and higher limits.",
-                icon: <CheckCircle className="w-6 h-6 text-success" />
+                icon: <CheckCircle className="w-6 h-6 text-success text-white" />
               }
             ].map((item, index) => (
               <div 
                 key={index} 
-                className="glass-morphism p-8 rounded-lg border border-primary/20 hover:-translate-y-1 hover:shadow-glow hover:border-primary/40 transition-all duration-300"
+                className="glass-morphism bg-black/5 backdrop-blur-xl p-8 rounded-lg border border-white/10 hover:-translate-y-2 hover:shadow-2xl hover:shadow-white/5 hover:border-white/20 transition-all duration-500"
               >
-                <div className="mb-4 bg-primary/20 w-12 h-12 rounded-lg flex items-center justify-center">{item.icon}</div>
+                <div className="mb-4 bg-white/5 backdrop-blur-sm w-12 h-12 rounded-lg flex items-center justify-center border border-white/10">{item.icon}</div>
                 <h3 className="text-lg font-medium mb-3">{item.title}</h3>
                 <p className="text-sm text-muted-foreground">{item.description}</p>
               </div>
@@ -216,7 +217,7 @@ export default function KYCPage() {
 
           {/* Security Notice */}
           <div className="max-w-2xl mx-auto">
-            <div className="glass-morphism rounded-lg border border-success/30 p-6 hover:-translate-y-1 hover:shadow-glow hover:border-success/40 transition-all duration-300">
+            <div className="glass-morphism bg-green-500/5 backdrop-blur-xl rounded-lg border border-green-500/20 p-6 hover:-translate-y-1 hover:shadow-2xl hover:shadow-green-500/10 hover:border-green-500/30 transition-all duration-500">
               <div className="flex items-start gap-3">
                 <Shield className="w-5 h-5 text-success mt-1 flex-shrink-0" />
                 <div>
