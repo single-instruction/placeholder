@@ -39,11 +39,6 @@ export function KYCProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(`kyc_verified_${address.toLowerCase()}`, 'true');
     setIsKYCVerified(true);
     setShowKYCModal(false);
-    
-    // Auto redirect to dashboard after successful KYC
-    setTimeout(() => {
-      window.location.href = '/dashboard';
-    }, 1500);
   }, [address]);
 
   // Reset KYC status (for testing or when wallet disconnects)
@@ -59,17 +54,8 @@ export function KYCProvider({ children }: { children: React.ReactNode }) {
     checkKYCStatus();
   }, [checkKYCStatus]);
 
-  // Show KYC modal when wallet connects but not verified
-  useEffect(() => {
-    if (isConnected && address && !isKYCVerified && !isKYCLoading) {
-      // Add a small delay to prevent modal from showing immediately
-      const timer = setTimeout(() => {
-        setShowKYCModal(true);
-      }, 1000);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [isConnected, address, isKYCVerified, isKYCLoading]);
+  // KYC modal is now only shown manually via setShowKYCModal
+  // Removed automatic modal showing to allow users to access dashboard freely
 
   // Reset state when wallet disconnects
   useEffect(() => {

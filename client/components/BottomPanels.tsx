@@ -31,6 +31,13 @@ interface Order {
   status: "Open" | "Filled" | "Cancelled";
 }
 
+interface Trade {
+  price: number;
+  size: number;
+  side: "buy" | "sell";
+  time: string;
+}
+
 export const BottomPanels = () => {
   const [balances] = useState<Balance[]>([
     { asset: "USDC", total: 10000.00, available: 8500.00, inOrders: 1500.00 },
@@ -78,6 +85,15 @@ export const BottomPanels = () => {
     }
   ]);
 
+  const [trades, setTrades] = useState<Trade[]>([
+    { price: 44.451, size: 12.5, side: "buy", time: "14:32:15" },
+    { price: 44.448, size: 8.2, side: "sell", time: "14:32:12" },
+    { price: 44.452, size: 25.0, side: "buy", time: "14:32:08" },
+    { price: 44.445, size: 15.8, side: "sell", time: "14:32:05" },
+    { price: 44.450, size: 30.2, side: "buy", time: "14:32:01" },
+    { price: 44.447, size: 5.5, side: "sell", time: "14:31:58" },
+  ]);
+
   // Simulate live PnL updates
   useEffect(() => {
     const interval = setInterval(() => {
@@ -102,12 +118,42 @@ export const BottomPanels = () => {
 
   return (
     <div className="glass-panel h-80 border-t">
-      <Tabs defaultValue="balances" className="h-full flex flex-col">
+      <Tabs defaultValue="trades" className="h-full flex flex-col">
         <TabsList className="glass-panel m-2 w-fit">
-          <TabsTrigger value="balances" className="text-xs">Balances</TabsTrigger>
+          <TabsTrigger value="trades" className="text-xs">Trades</TabsTrigger>
           <TabsTrigger value="positions" className="text-xs">Positions</TabsTrigger>
           <TabsTrigger value="orders" className="text-xs">Open Orders</TabsTrigger>
+          <TabsTrigger value="balances" className="text-xs">Balances</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="trades" className="flex-1 p-4 m-0">
+          <div className="space-y-2">
+            <div className="grid grid-cols-3 gap-6 text-xs text-muted-foreground pb-2 border-b border-glass-border">
+              <div>Price</div>
+              <div>Size</div>
+              <div>Time</div>
+            </div>
+            {trades.map((trade, index) => (
+              <div key={index} className="grid grid-cols-3 gap-6 text-sm py-2 hover:bg-glass-hover/30 rounded">
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    className={`h-5 px-2 text-xs font-medium ${
+                      trade.side === 'buy' 
+                        ? 'bg-teal-500/20 text-teal-300 border-teal-500/30 hover:bg-teal-500/30' 
+                        : 'bg-red-500/20 text-red-300 border-red-500/30 hover:bg-red-500/30'
+                    }`}
+                  >
+                    {trade.side.toUpperCase()}
+                  </Button>
+                  <span className="font-mono text-foreground">{trade.price.toFixed(3)}</span>
+                </div>
+                <div className="font-mono text-muted-foreground">{trade.size}</div>
+                <div className="text-muted-foreground font-mono text-xs">{trade.time}</div>
+              </div>
+            ))}
+          </div>
+        </TabsContent>
 
         <TabsContent value="balances" className="flex-1 p-4 m-0">
           <div className="space-y-2">

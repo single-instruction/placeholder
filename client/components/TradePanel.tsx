@@ -28,8 +28,8 @@ export const TradePanel = () => {
             <Button
               variant={side === "buy" ? "default" : "outline"}
               className={side === "buy" 
-                ? "bg-success hover:bg-success/80 text-success-foreground" 
-                : "border-success/30 text-success hover:bg-success/10"
+                ? "bg-teal-500/20 border-teal-500/40 text-teal-100 hover:bg-teal-500/30" 
+                : "border-teal-500/20 text-teal-400 hover:bg-teal-500/10"
               }
               onClick={() => setSide("buy")}
             >
@@ -38,8 +38,8 @@ export const TradePanel = () => {
             <Button
               variant={side === "sell" ? "default" : "outline"}
               className={side === "sell"
-                ? "bg-destructive hover:bg-destructive/80 text-destructive-foreground"
-                : "border-destructive/30 text-destructive hover:bg-destructive/10"
+                ? "bg-red-500/20 border-red-500/40 text-red-100 hover:bg-red-500/30"
+                : "border-red-500/20 text-red-400 hover:bg-red-500/10"
               }
               onClick={() => setSide("sell")}
             >
@@ -100,8 +100,8 @@ export const TradePanel = () => {
             <Button 
               className={`w-full h-12 text-base font-semibold ${
                 side === "buy"
-                  ? "bg-success hover:bg-success/80 text-success-foreground glow-primary"
-                  : "bg-destructive hover:bg-destructive/80 text-destructive-foreground"
+                  ? "bg-teal-500/25 border-teal-500/50 text-teal-100 hover:bg-teal-500/35"
+                  : "bg-red-500/25 border-red-500/50 text-red-100 hover:bg-red-500/35"
               }`}
             >
               {side === "buy" ? "Buy" : "Sell"} HYPE
@@ -162,8 +162,8 @@ export const TradePanel = () => {
             <Button 
               className={`w-full h-12 text-base font-semibold ${
                 side === "buy"
-                  ? "bg-success hover:bg-success/80 text-success-foreground"
-                  : "bg-destructive hover:bg-destructive/80 text-destructive-foreground"
+                  ? "bg-teal-500/25 border-teal-500/50 text-teal-100 hover:bg-teal-500/35"
+                  : "bg-red-500/25 border-red-500/50 text-red-100 hover:bg-red-500/35"
               }`}
             >
               {side === "buy" ? "Buy" : "Sell"} HYPE

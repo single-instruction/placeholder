@@ -101,15 +101,16 @@ export function KYCModal() {
 
   return (
     <Dialog open={showKYCModal} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[600px] bg-gradient-to-br from-slate-900/95 to-slate-800/95 border border-slate-700/50 backdrop-blur-xl">
+      <div className={`fixed inset-0 z-40 transition-all duration-300 ${showKYCModal ? 'backdrop-blur-md bg-black/20' : 'pointer-events-none'}`} />
+      <DialogContent className="sm:max-w-[600px] glass-morphism border border-glass-border/60 backdrop-blur-2xl z-50">
         <DialogHeader className="text-center space-y-4">
-          <div className="flex items-center justify-center w-16 h-16 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mb-4">
-            <Shield className="w-8 h-8 text-white" />
+          <div className="flex items-center justify-center w-16 h-16 mx-auto glass-morphism rounded-full mb-4 silver-glow">
+            <Shield className="w-8 h-8 text-primary" />
           </div>
-          <DialogTitle className="text-2xl font-bold text-white">
+          <DialogTitle className="text-2xl font-bold text-gradient-silver">
             Complete Identity Verification
           </DialogTitle>
-          <DialogDescription className="text-slate-300 text-base leading-relaxed">
+          <DialogDescription className="text-muted-foreground text-base leading-relaxed">
             To ensure the security of our platform and comply with regulations, 
             please complete the KYC verification process using Self.xyz.
           </DialogDescription>
@@ -119,24 +120,24 @@ export function KYCModal() {
           {/* Loading State */}
           {isLoading && (
             <div className="flex flex-col items-center justify-center py-12 space-y-4">
-              <Loader2 className="w-12 h-12 animate-spin text-blue-400" />
-              <p className="text-slate-300">Initializing verification...</p>
+              <Loader2 className="w-12 h-12 animate-spin text-primary" />
+              <p className="text-muted-foreground">Initializing verification...</p>
             </div>
           )}
 
           {/* Error State */}
           {!isLoading && errorMessage && (
             <div className="flex flex-col items-center justify-center py-12 space-y-6">
-              <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center">
-                <AlertTriangle className="w-8 h-8 text-red-400" />
+              <div className="w-16 h-16 glass-morphism rounded-full flex items-center justify-center">
+                <AlertTriangle className="w-8 h-8 text-destructive" />
               </div>
               <div className="text-center space-y-2">
-                <h3 className="text-lg font-semibold text-red-400">Initialization Failed</h3>
-                <p className="text-red-300/70 text-sm max-w-md">
+                <h3 className="text-lg font-semibold text-destructive">Initialization Failed</h3>
+                <p className="text-destructive/70 text-sm max-w-md">
                   {errorMessage}
                 </p>
               </div>
-              <Button onClick={handleRetry} className="bg-blue-600 hover:bg-blue-700">
+              <Button onClick={handleRetry} className="glass-morphism bg-primary/20 border-primary/30 hover:bg-primary/30 text-primary-foreground glow-subtle">
                 Try Again
               </Button>
             </div>
@@ -145,12 +146,12 @@ export function KYCModal() {
           {/* Success State */}
           {verificationStatus === 'success' && (
             <div className="flex flex-col items-center justify-center py-12 space-y-6">
-              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center">
-                <CheckCircle className="w-8 h-8 text-green-400" />
+              <div className="w-16 h-16 glass-morphism rounded-full flex items-center justify-center">
+                <CheckCircle className="w-8 h-8 text-success" />
               </div>
               <div className="text-center space-y-2">
-                <h3 className="text-lg font-semibold text-green-400">Verification Successful!</h3>
-                <p className="text-slate-300 text-sm">
+                <h3 className="text-lg font-semibold text-success">Verification Successful!</h3>
+                <p className="text-muted-foreground text-sm">
                   Your identity has been verified. Redirecting to dashboard...
                 </p>
               </div>
@@ -161,12 +162,12 @@ export function KYCModal() {
           {!isLoading && !errorMessage && selfApp && verificationStatus !== 'success' && (
             <div className="space-y-6">
               {/* Instructions */}
-              <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700/30">
-                <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
-                  <Smartphone className="w-5 h-5" />
+              <div className="kyc-card p-4">
+                <h3 className="text-lg font-semibold text-foreground mb-3 flex items-center gap-2">
+                  <Smartphone className="w-5 h-5 text-primary" />
                   How to verify:
                 </h3>
-                <ol className="text-sm text-slate-300 space-y-2 list-decimal list-inside">
+                <ol className="text-sm text-muted-foreground space-y-2 list-decimal list-inside">
                   <li>Download the Self.xyz app from your app store</li>
                   <li>Scan the QR code below with the Self.xyz app</li>
                   <li>Follow the in-app instructions to complete verification</li>
@@ -176,7 +177,7 @@ export function KYCModal() {
 
               {/* QR Code */}
               <div className="flex flex-col items-center space-y-4">
-                <div className="bg-white rounded-xl p-6 shadow-2xl">
+                <div className="bg-white rounded-xl p-6 shadow-2xl silver-glow">
                   <SelfQRcodeWrapper
                     selfApp={selfApp}
                     onSuccess={handleSuccessfulVerification}
@@ -190,7 +191,7 @@ export function KYCModal() {
                 {universalLink && (
                   <a 
                     href={universalLink}
-                    className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                    className="flex items-center gap-2 px-6 py-3 glass-morphism bg-primary/20 border-primary/30 hover:bg-primary/30 text-primary-foreground rounded-lg glow-subtle font-medium"
                   >
                     <Smartphone className="w-4 h-4" />
                     Open in Self.xyz App
@@ -199,17 +200,17 @@ export function KYCModal() {
               </div>
 
               {/* Session Info */}
-              <div className="bg-slate-800/30 rounded-lg p-3 border border-slate-700/20">
-                <div className="text-xs text-slate-400 space-y-1">
+              <div className="glass-morphism border border-glass-border p-3">
+                <div className="text-xs text-muted-foreground space-y-1">
                   <div className="flex justify-between">
                     <span>Wallet:</span>
-                    <span className="font-mono">{address?.slice(0, 6)}...{address?.slice(-6)}</span>
+                    <span className="font-mono text-foreground">{address?.slice(0, 6)}...{address?.slice(-6)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Status:</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                      <span>Ready for verification</span>
+                      <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                      <span className="text-primary">Ready for verification</span>
                     </div>
                   </div>
                 </div>
@@ -219,7 +220,7 @@ export function KYCModal() {
         </div>
 
         {/* Footer */}
-        <div className="border-t border-slate-700/30 pt-4 flex justify-between items-center text-xs text-slate-400">
+        <div className="border-t border-glass-border pt-4 flex justify-between items-center text-xs text-muted-foreground">
           <span>Powered by Self.xyz</span>
           <span>Secure • Private • Compliant</span>
         </div>

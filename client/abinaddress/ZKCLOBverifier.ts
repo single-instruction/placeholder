@@ -190,4 +190,4 @@ export const ZKCLOBverifierabi=[
     { "type": "error", "name": "InvalidDataFormat", "inputs": [] },
     { "type": "error", "name": "UnauthorizedCaller", "inputs": [] }
   ]
-export const ZKCLOBverifieraddress=
+export const ZKCLOBverifieraddress=0x99064CF6d955C3aF3b8c5AF5078d8AC1372b323d

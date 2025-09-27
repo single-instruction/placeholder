@@ -24,36 +24,24 @@ export const Navbar = () => {
       {/* Logo */}
       <div className="flex items-center space-x-8">
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center silver-glow">
-            <span className="text-sm font-bold text-primary-foreground">zk</span>
+          <div className="w-8 h-8 bg-gradient-to-br from-teal-500/80 to-teal-600/80 rounded-lg flex items-center justify-center">
+            <span className="text-sm font-bold text-white">zk</span>
           </div>
-          <span className="text-xl font-bold text-gradient-silver">zkCLOB</span>
+          <span className="text-xl font-bold text-foreground">zkCLOB</span>
         </div>
 
         {/* Navigation Items */}
         <div className="hidden md:flex items-center space-x-6">
-          <Button variant="ghost" className="text-primary hover:text-primary-glow transition-all duration-300 hover:silver-glow">
-            Trade
-          </Button>
-          <Button variant="ghost" className="hover:text-primary-glow transition-all duration-300">
-            Vaults
-          </Button>
-          <Button variant="ghost" className="hover:text-primary-glow transition-all duration-300">
-            Portfolio
-          </Button>
-          <Button variant="ghost" className="hover:text-primary-glow transition-all duration-300">
-            Staking
-          </Button>
-          <Button variant="ghost" className="hover:text-primary-glow transition-all duration-300">
-            Referrals
-          </Button>
-          <Button variant="ghost" className="hover:text-primary-glow transition-all duration-300">
-            Leaderboard
-          </Button>
-          <Button variant="ghost" className="flex items-center space-x-1 hover:text-primary-glow transition-all duration-300">
-            <span>More</span>
-            <ChevronDown className="w-4 h-4" />
-          </Button>
+          <a href="/dashboard">
+            <Button variant="ghost" className="text-foreground hover:text-primary transition-all duration-300">
+              Trade
+            </Button>
+          </a>
+          <a href="/explore">
+            <Button variant="ghost" className="text-foreground hover:text-primary transition-all duration-300">
+              Explore
+            </Button>
+          </a>
         </div>
       </div>
 
@@ -63,7 +51,7 @@ export const Navbar = () => {
         {isConnected && (
           <div className="flex items-center gap-2">
             {isKYCVerified ? (
-              <Badge variant="secondary" className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/30 glass-morphism">
+              <Badge variant="secondary" className="bg-teal-500/15 text-teal-400 border-teal-500/25 glass-morphism">
                 <Shield className="w-3 h-3 mr-1" />
                 Verified
               </Badge>
@@ -72,7 +60,7 @@ export const Navbar = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-teal-500/50 text-teal-400 hover:bg-teal-500/20 hover:border-teal-500 glass-morphism glow-subtle hover:glow-teal transition-all duration-300"
+                  className="border-teal-500/40 text-teal-400 hover:bg-teal-500/10 hover:border-teal-500/60 glass-morphism"
                 >
                   <AlertTriangle className="w-3 h-3 mr-1" />
                   Complete KYC
@@ -110,7 +98,7 @@ export const Navbar = () => {
                     return (
                       <Button 
                         onClick={openConnectModal}
-                        className="enhanced-glass silver-glow hover:bg-primary/20 text-primary-foreground bg-gradient-to-r from-primary to-accent transition-all duration-300 hover:scale-105"
+                        className="glass-morphism bg-teal-500/15 border-teal-500/30 text-teal-100 hover:bg-teal-500/25"
                       >
                         Connect Wallet
                       </Button>
@@ -122,14 +110,14 @@ export const Navbar = () => {
                       <Button
                         onClick={openChainModal}
                         variant="ghost"
-                        className="flex items-center gap-1 silver-glow"
+                        className="flex items-center gap-1 text-muted-foreground hover:text-foreground"
                       >
                         {chain.name}
                       </Button>
                       <Button
                         onClick={openAccountModal}
                         variant="outline"
-                        className="enhanced-glass silver-glow flex items-center gap-2"
+                        className="glass-morphism border-teal-500/30 flex items-center gap-2"
                       >
                         <div className="flex items-center gap-1">
                           <span>
@@ -157,10 +145,10 @@ export const Navbar = () => {
             );
           }}
         </ConnectButton.Custom>
-        <Button variant="ghost" size="icon" className="hover:text-primary-glow hover:silver-glow transition-all duration-300">
+        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
           <Globe className="w-5 h-5" />
         </Button>
-        <Button variant="ghost" size="icon" className="hover:text-primary-glow hover:silver-glow transition-all duration-300">
+        <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
           <Settings className="w-5 h-5" />
         </Button>
       </div>
