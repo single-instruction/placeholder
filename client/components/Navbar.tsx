@@ -24,10 +24,10 @@ export const Navbar = () => {
       {/* Logo */}
       <div className="flex items-center space-x-8">
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-teal-500/80 to-teal-600/80 rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-gradient-to-br from-teal-500/80 to-teal-600/80 rounded-sm flex items-center justify-center">
             <span className="text-sm font-bold text-white">zk</span>
           </div>
-          <span className="text-xl font-bold text-foreground">zkCLOB</span>
+          <span className="text-xl font-bold text-foreground">zLOB</span>
         </div>
 
         {/* Navigation Items */}

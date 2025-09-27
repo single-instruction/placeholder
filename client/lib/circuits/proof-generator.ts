@@ -274,7 +274,6 @@ export class ProofGenerator {
       // Try the snarkjs.groth16.fullProve approach instead
       console.log('[WITNESS] Trying snarkjs.groth16.fullProve approach...');
       
-      const artifacts = await this.circuitLoader.loadArtifacts();
       const zkeyBytes = new Uint8Array(artifacts.zkey);
       
       console.log('[WITNESS] Calling groth16.fullProve...');

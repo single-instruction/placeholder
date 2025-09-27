@@ -258,7 +258,7 @@ export const ChartSection = () => {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <div className="w-6 h-6 bg-gradient-to-br from-primary to-primary-glow rounded-full"></div>
-              <span className="text-lg font-bold">HYPE/USDC</span>
+              <span className="text-lg font-bold">ZLOB/USDC</span>
               <Badge variant="secondary" className="text-xs">Perpetual</Badge>
               <div className="flex items-center space-x-1 text-xs text-muted-foreground">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>

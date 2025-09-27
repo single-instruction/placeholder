@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 export default function ExplorePage() {
   const markets = [
-    { pair: 'HYPE/USDC', price: 44.449, change: 2.4, volume: '2.1M', high: 45.2, low: 43.8 },
+    { pair: 'ZLOB/USDC', price: 44.449, change: 2.4, volume: '2.1M', high: 45.2, low: 43.8 },
     { pair: 'ETH/USDC', price: 3220.45, change: -1.2, volume: '15.8M', high: 3280, low: 3195 },
     { pair: 'BTC/USDC', price: 67890.12, change: 0.8, volume: '45.2M', high: 68200, low: 67100 },
     { pair: 'MATIC/USDC', price: 0.8945, change: 5.6, volume: '890K', high: 0.912, low: 0.847 },

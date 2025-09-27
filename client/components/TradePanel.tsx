@@ -4,6 +4,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
+import { Shield, Key, Loader2 } from "lucide-react";
+import { useKYC } from "@/components/utils/KYCContext";
+import { useTradingKeys } from "@/hooks/useTradingKeys";
+import { useOrderSubmission } from "@/hooks/useOrderSubmission";
+import { useCircuits } from "@/hooks/useCircuits";
+import { useWalletClient } from "wagmi";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";
 
