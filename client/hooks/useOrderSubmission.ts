@@ -163,15 +163,53 @@ async function prepareOrderParams(orderRequest: OrderRequest): Promise<OrderPara
   };
 }
 
-// Helper: Submit to sequencer (mock implementation)
+// Helper: Submit to sequencer (actual backend call)
 async function submitToSequencer(orderSubmission: OrderSubmission): Promise<{ txHash: string }> {
-  // TODO: Implement actual sequencer API call
-  console.log('Submitting to sequencer:', orderSubmission);
+  console.log('[BACKEND] Transforming order for backend API...');
   
-  // Mock API call
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  // Parse circuit outputs
+  const outputs = ProofGenerator.parseCircuitOutputs(orderSubmission.publicSignals);
+  console.log('[BACKEND] Circuit outputs:', outputs);
   
-  return {
-    txHash: '0x' + Math.random().toString(16).slice(2, 42)
+  // Transform to backend format
+  const backendOrder = {
+    pair_id: 1, // Hardcoded for now
+    side: orderSubmission.orderParams.side,
+    price_tick: orderSubmission.orderParams.priceTick,
+    amount: orderSubmission.orderParams.amount,
+    time_bucket: orderSubmission.orderParams.timeBucket,
+    nonce: orderSubmission.orderParams.nonce,
+    order_hash: outputs.order_hash,
+    pk_hash: orderSubmission.orderParams.pairIdHash // Use pairIdHash as pk_hash
   };
+  
+  console.log('[BACKEND] Sending to backend:', backendOrder);
+  
+  try {
+    // POST to actual backend
+    const response = await fetch('http://localhost:8080/v1/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(backendOrder)
+    });
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('[BACKEND] Error response:', errorText);
+      throw new Error(`Backend error: ${response.status} ${response.statusText}`);
+    }
+    
+    const result = await response.json();
+    console.log('[BACKEND] Backend response:', result);
+    
+    return {
+      txHash: `0x${result.order_id.toString(16).padStart(64, '0')}` // Mock tx hash from order_id
+    };
+    
+  } catch (error) {
+    console.error('[BACKEND] Request failed:', error);
+    throw new Error(`Failed to submit order: ${error instanceof Error ? error.message : error}`);
+  }
 }

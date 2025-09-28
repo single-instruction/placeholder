@@ -39,7 +39,7 @@ const Dashboard = () => {
       </div>
       
       {/* Floating Announcements */}
-      <Announcements />
+      {/* <Announcements /> */}
     </div>
   );
 };

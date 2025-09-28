@@ -107,13 +107,13 @@ export const Navbar = () => {
 
                   return (
                     <div className="flex items-center gap-3">
-                      <Button
+                      {/* <Button
                         onClick={openChainModal}
                         variant="ghost"
                         className="flex items-center gap-1 text-muted-foreground hover:text-foreground"
                       >
                         {chain.name}
-                      </Button>
+                      </Button> */}
                       <Button
                         onClick={openAccountModal}
                         variant="outline"

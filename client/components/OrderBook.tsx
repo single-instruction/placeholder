@@ -116,13 +116,13 @@ export const OrderBook = () => {
       {/* Background bar */}
       <div 
         className={`absolute left-0 top-0 h-full ${
-          type === 'ask' ? 'bg-destructive/20' : 'bg-success/20'
+          type === 'ask' ? 'bg-destructive/20' : 'bg-teal-400/20'
         }`}
         style={{ width: `${Math.min(entry.size / 1000 * 100, 100)}%` }}
       />
       
       <div className={`text-right font-mono relative z-10 ${
-        type === 'ask' ? 'text-destructive' : 'text-success'
+        type === 'ask' ? 'text-destructive' : 'text-teal-400'
       }`}>
         {entry.price.toFixed(3)}
       </div>

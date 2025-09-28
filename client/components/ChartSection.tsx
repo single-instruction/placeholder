@@ -592,7 +592,7 @@ function TradingViewChart({ candles, chartType, currentPrice, timeframe }: Tradi
         {/* Current Price Label */}
         <g>
           <rect
-            x={chartWidth - padding.right - 60}
+            x={chartWidth - padding.right - 120}
             y={scaleY(currentPrice) - 12}
             width="55"
             height="24"
@@ -681,14 +681,14 @@ function TradingViewChart({ candles, chartType, currentPrice, timeframe }: Tradi
       )}
 
       {/* Live Indicator and Price Ticker */}
-      <div className="absolute top-4 right-4 flex flex-col gap-2">
+      {/* <div className="absolute top-4 right-4 flex flex-col gap-2"> */}
       
         {/* Mini depth chart visualization */}
-        <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-lg p-2 mt-2 w-48">
-          <div className="text-xs text-slate-400 mb-1">Market Depth</div>
-          <div className="h-20 relative">
+        {/* <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-lg p-2 mt-2 w-48"> */}
+          {/* <div className="text-xs text-slate-400 mb-1">Market Depth</div> */}
+          {/* <div className="h-20 relative"> */}
             {/* Buy side depth */}
-            <div className="absolute left-0 bottom-0 right-1/2 h-full flex items-end pr-0.5">
+            {/* <div className="absolute left-0 bottom-0 right-1/2 h-full flex items-end pr-0.5">
               {[...Array(8)].map((_, i) => {
                 const height = 20 + Math.random() * 50;
                 const opacity = 0.6 - (i * 0.07);
@@ -704,10 +704,10 @@ function TradingViewChart({ candles, chartType, currentPrice, timeframe }: Tradi
                   />
                 );
               })}
-            </div>
+            </div> */}
             
             {/* Sell side depth */}
-            <div className="absolute left-1/2 bottom-0 right-0 h-full flex items-end pl-0.5">
+            {/* <div className="absolute left-1/2 bottom-0 right-0 h-full flex items-end pl-0.5">
               {[...Array(8)].map((_, i) => {
                 const height = 20 + Math.random() * 50;
                 const opacity = 0.6 - (i * 0.07);
@@ -723,18 +723,18 @@ function TradingViewChart({ candles, chartType, currentPrice, timeframe }: Tradi
                   />
                 );
               })}
-            </div>
+            </div> */}
             
             {/* Center price line */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-slate-300 opacity-50"/>
-          </div>
-          <div className="flex justify-between text-xs text-slate-400 mt-1">
-            <span>-2%</span>
-            <span className="text-white text-center">$44.45</span>
-            <span>+2%</span>
-          </div>
-        </div>
-      </div>
+            {/* <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-slate-300 opacity-50"/> */}
+          {/* </div> */}
+          {/* <div className="flex justify-between text-xs text-slate-400 mt-1"> */}
+            {/* <span>-2%</span> */}
+            {/* <span className="text-white text-center">$44.45</span> */}
+            {/* <span>+2%</span> */}
+          {/* </div> */}
+        {/* </div> */}
+      {/* </div> */}
 
       {/* Market Status */}
       <div className="absolute bottom-4 left-4 text-xs text-slate-500">
