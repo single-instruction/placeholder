@@ -203,9 +203,11 @@ async function submitToSequencer(orderSubmission: OrderSubmission): Promise<{ tx
     
     const result = await response.json();
     console.log('[BACKEND] Backend response:', result);
+
+    const mock_order_id = 0x1234567890123456
     
     return {
-      txHash: `0x${result.order_id.toString(16).padStart(64, '0')}` // Mock tx hash from order_id
+      txHash: `0x${mock_order_id.toString(16).padStart(64, '0')}` // Mock tx hash from order_id
     };
     
   } catch (error) {

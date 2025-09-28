@@ -244,7 +244,7 @@ export const TradePanel = () => {
                   </span>
                 </div>
               ) : (
-                `${side === "buy" ? "Buy" : "Sell"} HYPE`
+                `${side === "buy" ? "Buy" : "Sell"} ZLOB`
               )}
             </Button>
 

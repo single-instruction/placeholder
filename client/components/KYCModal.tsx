@@ -39,7 +39,7 @@ export function KYCModal() {
         version: 2,
         appName: "zkCLOB Exchange",
         scope: "zkclob-kyc-verifier",
-        endpoint: "0x99064cf6d955c3af3b8c5af5078d8ac1372b323d",
+        endpoint: "0xcf4c5064162bc944781cf36f75d037036c35665a",
         logoBase64: "https://i.postimg.cc/mrmVf9hm/self.png",
         userId: address || "",
         endpointType: "staging_celo",

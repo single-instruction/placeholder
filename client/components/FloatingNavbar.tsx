@@ -22,7 +22,7 @@ export const FloatingNavbar = () => {
             <div className="min-w-[140px]">
               <ConnectButton 
                 showBalance={false}
-                chainStatus="icon"
+                chainStatus="none"
                 accountStatus="address"
               />
             </div>

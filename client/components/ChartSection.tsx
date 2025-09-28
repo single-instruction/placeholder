@@ -592,7 +592,7 @@ function TradingViewChart({ candles, chartType, currentPrice, timeframe }: Tradi
         {/* Current Price Label */}
         <g>
           <rect
-            x={chartWidth - padding.right - 120}
+            x={chartWidth - padding.right - 60}
             y={scaleY(currentPrice) - 12}
             width="55"
             height="24"
