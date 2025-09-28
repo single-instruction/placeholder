@@ -7,3 +7,6 @@
 [submodule "Sequencer-zkvm"]
 	path = Sequencer-zkvm
 	url = ../Sequencer-zkvm
+[submodule "mopro-placeholder"]
+	path = mopro-placeholder
+	url = ../mopro-placeholder
